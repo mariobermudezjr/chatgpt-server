@@ -5,6 +5,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import { Configuration, OpenAIApi } from 'openai'
+import openAiRoutes from './routes/openai.js'
 
 /* CONFIGURATION */
 dotenv.config()
@@ -22,6 +23,11 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 })
 export const openai = new OpenAIApi(configuration)
+
+/* ROUTES */
+// Add a prefix or parent route to all openai related routes
+// example: http://localhost:1337/openai/text
+app.use('/openai', openAiRoutes)
 
 /* SERVER SETUP */
 const PORT = process.env.PORT || 9000
